@@ -88,7 +88,23 @@ Or let Claude detect it automatically from natural language:
 - "Architecture decision"
 - Korean: "고찰", "같이 생각해보자", "어떻게 접근하면", "설계 논의"
 
-### Example
+### Without Gochal (typical Claude response)
+
+```
+You: I need to add real-time notifications to our app. How should I approach this?
+
+Claude: Here are three approaches:
+
+A) WebSockets — best for bidirectional, low-latency communication
+B) Server-Sent Events (SSE) — simpler, unidirectional, HTTP-based
+C) Managed service (Pusher/Ably) — no infrastructure to manage
+
+I'd recommend option C for your use case since...
+```
+
+The user gets a menu, picks one (often the recommendation), and moves on — without understanding *why* that choice matters for their specific project.
+
+### With Gochal
 
 ```
 You: I need to add real-time notifications to our app. How should I approach this?
@@ -99,7 +115,45 @@ Claude: 고찰 시작합니다.
 Looking at your project... you're running a Next.js app with a REST API.
 So you want to add real-time notifications — is this for in-app alerts,
 or do you also need push notifications when the tab is closed?
+
+You: Both, but in-app is the priority.
+
+[고찰 2/5: 시뮬레이션]
+Let's walk through this concretely. A user is editing a document.
+Teammate B makes a change — what should User A see?
+
+(walks through 3+ steps, surfaces constraints like reconnection handling,
+state sync, and offline behavior)
+
+[고찰 3/5: 탐색]
+WebSocket was designed for persistent bidirectional channels — gaming and
+trading platforms use it because sub-100ms latency matters there. In your
+case, notification latency of 1-2 seconds is fine, so that advantage
+doesn't apply as much...
+
+SSE is HTTP-native, which means it works with your existing Vercel
+deployment — no separate server process. But it's unidirectional. For
+your bidirectional need, you'd be combining SSE + REST POST, which is
+two channels to manage...
+
+(evaluates each approach against the hard case from Phase 2)
+
+[고찰 4/5: 앵커링]
+This comes down to two axes: infrastructure ownership (full control vs
+zero ops) and protocol fit (native bidirectional vs HTTP workaround).
+In your project, the ops burden matters more because...
+
+You: Let's go with the managed service approach.
+
+[고찰 5/5: 수렴]
+That gives you zero infrastructure overhead and built-in reconnection.
+You're trading off direct control — if you ever need custom protocols,
+you'll hit the SDK's limits. This pattern — choosing managed over
+self-hosted when team size is small and customization needs are low —
+shows up again in auth, logging, and monitoring decisions.
 ```
+
+The user explored the landscape, understood the trade-offs, and made a grounded choice — not just followed a recommendation.
 
 ## When to Use
 
