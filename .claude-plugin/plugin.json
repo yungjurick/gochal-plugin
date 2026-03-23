@@ -1,0 +1,10 @@
+{
+  "name": "gochal-plugin",
+  "description": "Thinking partner for design decisions and architecture brainstorming. Transforms Claude from a solution-provider into a senior engineer thinking partner.",
+  "version": "1.0.0",
+  "author": {
+    "name": "yungjurick"
+  },
+  "repository": "https://github.com/yungjurick/gochal-plugin",
+  "license": "MIT"
+}
