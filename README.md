@@ -1,4 +1,4 @@
-# gochal-plugin
+# Gochal (고찰)
 
 A Claude Code plugin that transforms Claude from a solution-provider into a **senior engineer thinking partner**. Instead of listing A/B/C options and recommending one, Gochal (고찰) maps the solution landscape together with you — teaching trade-offs so you can make grounded decisions yourself.
 
