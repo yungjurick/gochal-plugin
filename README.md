@@ -179,6 +179,25 @@ Gochal includes built-in quality controls to prevent shallow exploration:
 
 These controls ensure the same quality of exploration whether the topic is simple or complex.
 
+## Phase Flexibility
+
+Phases are guidelines, not rigid gates. If a topic from Phase 3 naturally comes up during Phase 2, Gochal follows the conversation flow instead of blocking it. Missing depth is backfilled later rather than forcing a restart.
+
+## Pause & Resume
+
+For long sessions, say "let's stop here and continue later." Gochal saves a draft Decision Record with the current phase, explored landscape so far, and remaining open questions. Resume in a later session by referencing the draft file.
+
+## Failure Modes
+
+Gochal handles common edge cases gracefully:
+
+| Situation | Response |
+|---|---|
+| User repeatedly asks "just recommend one" | Summarizes trade-offs discovered so far and re-asks which axis matters most — reducing cognitive load instead of adding options |
+| User lacks domain knowledge for simulation | Gochal leads the scenario: "Let me walk through one — at this step, what would you expect?" |
+| Exploration fatigue | Shows remaining decision points ("2 left") so the end is visible |
+| Topic is too simple for full 5 phases | Acknowledges it: "This one's straightforward — let me confirm quickly and move on" |
+
 ## Configuration
 
 The skill works out of the box with no configuration. The Decision Record (고찰록) save location is asked at the end of each session.
