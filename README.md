@@ -4,7 +4,7 @@ A Claude Code plugin that transforms Claude from a solution-provider into a **se
 
 ## Motivation
 
-AI coding assistants tend to recommend solutions. The problem? Research shows that when AI presents recommendations, users follow them even when they conflict with their own judgment ([Klingbeil et al., 2024](https://doi.org/10.1016/j.chb.2024.108100)). This short-circuits learning and produces decisions without understanding.
+AI coding assistants tend to recommend solutions. The problem? Research shows that when AI presents recommendations, users follow them even when they conflict with their own judgment ([Klingbeil et al., 2024](https://doi.org/10.1016/j.chb.2024.108352)). This short-circuits learning and produces decisions without understanding.
 
 Gochal takes a different approach. Inspired by Applied Cognitive Task Analysis (ACTA) and preference construction theory, it:
 
@@ -17,9 +17,10 @@ The name 고찰 (go-chal) means "deep contemplation" in Korean. It reflects the 
 
 ## How It Works
 
-Gochal follows a 5-phase cognitive protocol:
+Gochal follows a gate + 5-phase cognitive protocol:
 
 ```
+0. Gate       — Decide whether full exploration is needed
 1. Intent     — Understand what you're building and why
 2. Simulate   — Walk through concrete end-to-end scenarios
 3. Explore    — Map the solution landscape for each decision point
@@ -28,9 +29,17 @@ Gochal follows a 5-phase cognitive protocol:
    → Decision Record (고찰록)
 ```
 
+### Phase 0: Gate
+
+Not every request needs full 5-phase exploration. Before entering, Gochal applies a **"materially different" test**: would the user reject one valid implementation in favor of another? If there's only one reasonable path, no unresolved high-risk constraints, and the request is specific enough — Gochal confirms and moves on without ceremony.
+
+When context is missing, Gochal searches the codebase first instead of asking. It only asks when the artifact is genuinely undiscoverable.
+
 ### Phase 1: Intent
 
 Gochal reads your project context (files, docs, recent commits) and confirms understanding. Only asks what it genuinely doesn't know — no checklist interrogations.
+
+When multiple unknowns exist simultaneously, Gochal resolves them in priority order: **safety constraints first** (production, data, migrations), then **missing context** (files, artifacts), then **design branches**. Safety answers often collapse the branch space entirely.
 
 ### Phase 2: Simulate
 
