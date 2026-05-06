@@ -1,0 +1,14 @@
+{
+  "name": "gochal-plugin",
+  "owner": {
+    "name": "yungjurick"
+  },
+  "plugins": [
+    {
+      "name": "gochal-plugin",
+      "source": ".",
+      "description": "Thinking partner for design decisions and architecture brainstorming. Transforms Claude from a solution-provider into a senior engineer thinking partner.",
+      "version": "1.0.0"
+    }
+  ]
+}
